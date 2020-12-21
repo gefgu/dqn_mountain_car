@@ -6,24 +6,23 @@ from strategy import EpsilonGreedyStrategy
 from tqdm import tqdm
 import gym
 import torch
+from torch import tensor
 import numpy as np
 import torch.nn.functional as F
 
 def train_dqn(dqn, experience_replay, optimizer):
     optimizer.zero_grad()
 
-    states, actions, rewards, next_states = experience_replay.sample_minibatch()
+    minibatch = experience_replay.sample()
+    states = tensor([elem[0] for elem in minibatch], dtype=torch.float32)
+    actions = tensor([elem[1] for elem in minibatch], dtype=torch.int64)
+    rewards = tensor([elem[2] for elem in minibatch])
+    next_states = tensor([elem[3] for elem in minibatch], dtype=torch.float32)
 
-    states = np.stack(states).astype(np.float32)
-    actions = torch.from_numpy(np.stack(actions).astype(np.int64))
-    rewards = torch.from_numpy(np.stack(rewards))
-    next_states = np.stack(next_states).astype(np.float32)
-
-
-    preds = dqn(torch.from_numpy(states))
+    preds = dqn(states)
     preds = torch.mul(preds, F.one_hot(actions, config.N_ACTIONS)).sum(axis=1)
 
-    targets = dqn(torch.from_numpy(next_states)).detach()
+    targets = dqn(next_states).detach()
     targets = targets.amax(axis=1)
     targets *= config.DISCOUNT
     targets += rewards
@@ -51,10 +50,10 @@ def training_loop():
             q_values = dqn(torch.from_numpy(state.astype(np.float32)))
             action = q_values.argmax().item()
 
-        next_state, reward, done, info = env.step(action)
-        experience_replay.store_transition(state, action, reward, next_state)
+        next_state, reward, done, _ = env.step(action)
+        experience_replay.append((state, action, reward, next_state))
 
-        if(experience_replay.size() > config.BATCH_SIZE):
+        if(len(experience_replay) > config.BATCH_SIZE):
             train_dqn(dqn, experience_replay, optimizer)
 
         if done:
