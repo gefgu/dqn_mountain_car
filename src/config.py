@@ -8,7 +8,7 @@ MIN_EPSILON = 0.01
 
 ENV_NAME = "MountainCar-v0"
 
-BATCH_SIZE = 2
+BATCH_SIZE = 32
 
 DISCOUNT = 0.99
 
