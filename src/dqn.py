@@ -1,6 +1,6 @@
+import config
 from torch import nn
 import torch.nn.functional as F
-from . import config
 
 class DQN(nn.Module):
     def __init__(self):

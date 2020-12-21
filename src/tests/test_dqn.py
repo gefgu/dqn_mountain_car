@@ -1,6 +1,8 @@
+
 from ..dqn import DQN
 from .. import config
 from torch import rand
+
 
 def test_dqn_output_shape():
     dqn = DQN()
