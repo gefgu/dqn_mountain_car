@@ -1,4 +1,4 @@
-from torch._C import dtype
+from torch._C import device
 import config
 from dqn import DQN
 from experience_replay import ExperienceReplay
@@ -12,13 +12,13 @@ import torch.nn.functional as F
 import sys
 
 def train_dqn(dqn, experience_replay, optimizer):
-    optimizer.zero_grad()
+    optimizer.zero_grad(set_to_none=True)
 
     minibatch = experience_replay.sample()
-    states = tensor([elem[0] for elem in minibatch], dtype=torch.float32)
-    actions = tensor([elem[1] for elem in minibatch], dtype=torch.int64)
-    rewards = tensor([elem[2] for elem in minibatch])
-    next_states = tensor([elem[3] for elem in minibatch], dtype=torch.float32)
+    states = tensor([elem[0] for elem in minibatch], dtype=torch.float32, device=config.DEVICE)
+    actions = tensor([elem[1] for elem in minibatch], dtype=torch.int64, device=config.DEVICE)
+    rewards = tensor([elem[2] for elem in minibatch], device=config.DEVICE)
+    next_states = tensor([elem[3] for elem in minibatch], dtype=torch.float32, device=config.DEVICE)
 
     preds = dqn(states)
     preds = torch.mul(preds, F.one_hot(actions, config.N_ACTIONS)).sum(axis=1)
@@ -36,8 +36,9 @@ def train_dqn(dqn, experience_replay, optimizer):
 
 
 def training_loop():
-    dqn = DQN()
-    optimizer = torch.optim.RMSprop(dqn.parameters(), lr=config.LEARNING_RATE)
+    dqn = DQN().to(config.DEVICE)
+    optimizer = torch.optim.RMSprop(dqn.parameters(), lr=config.LEARNING_RATE,
+                momentum=config.GRADIENT_MOMENTUM)
     experience_replay = ExperienceReplay()
     strategy = EpsilonGreedyStrategy()
     env = gym.make(config.ENV_NAME)
@@ -48,7 +49,7 @@ def training_loop():
         if strategy.random_action():
             action = env.action_space.sample()
         else:
-            q_values = dqn(torch.from_numpy(state.astype(np.float32)))
+            q_values = dqn(tensor(state, dtype=torch.float32, device=config.DEVICE))
             action = q_values.argmax().item()
 
         next_state, reward, done, _ = env.step(action)
@@ -61,6 +62,8 @@ def training_loop():
             state = env.reset()
         else:
             state = next_state
+
+        strategy.decrease_epsilon()
     env.close()
     torch.save(dqn.state_dict(), config.MODEL_SAVE_PATH/"model.pt")
 
