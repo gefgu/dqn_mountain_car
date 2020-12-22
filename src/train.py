@@ -9,6 +9,7 @@ import torch
 from torch import tensor
 import numpy as np
 import torch.nn.functional as F
+import sys
 
 def train_dqn(dqn, experience_replay, optimizer):
     optimizer.zero_grad()
@@ -60,6 +61,8 @@ def training_loop():
             state = env.reset()
         else:
             state = next_state
+    env.close()
+    torch.save(dqn.state_dict(), config.MODEL_SAVE_PATH/"model.pt")
 
 
 
