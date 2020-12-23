@@ -60,7 +60,7 @@ conda install swig
 pip install Box2D
 ```
 
-Install [Xming](https://sourceforge.net/projects/xming/)
+Install [Xming](https://sourceforge.net/projects/xming/) to display your model playing with the envs.
 
 ## Usage
 
