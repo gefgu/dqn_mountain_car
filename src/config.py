@@ -24,6 +24,10 @@ MODEL_SAVE_PATH = Path("models/")
 
 MODEL_NAME = Path("model.pt")
 
+GIF_SAVE_PATH = Path(".")
+
+GIF_NAME = Path("gif.gif")
+
 DEVICE = "cpu"
 
 N_STEPS_TO_PLAY = 1000
