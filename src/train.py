@@ -4,6 +4,7 @@ import gym
 import torch
 from torch import tensor
 import torch.nn.functional as F
+import argparse
 
 def train_dqn(dqn, experience_replay, optimizer):
     optimizer.zero_grad(set_to_none=True)
@@ -26,20 +27,16 @@ def train_dqn(dqn, experience_replay, optimizer):
     loss.backward()
     optimizer.step()
 
-
-
-
-def training_loop():
+def training_loop(model_name=None):
     dqn = DQN().to(config.DEVICE)
-    optimizer = torch.optim.RMSprop(dqn.parameters(), lr=config.LEARNING_RATE,
-                momentum=config.GRADIENT_MOMENTUM)
+    optimizer = torch.optim.RMSprop(dqn.parameters(), lr=config.LEARNING_RATE, momentum=config.GRADIENT_MOMENTUM)
     experience_replay = ExperienceReplay()
     strategy = EpsilonGreedyStrategy()
     env = gym.make(config.ENV_NAME)
     state = env.reset()
 
     for i in tqdm(range(config.N_FRAMES_TO_TRAIN)):
-        if strategy.random_action():
+        if strategy.choose_random():
             action = env.action_space.sample()
         else:
             q_values = dqn(tensor(state, dtype=torch.float32, device=config.DEVICE))
@@ -59,11 +56,13 @@ def training_loop():
         strategy.decrease_epsilon()
 
     env.close()
-    torch.save(dqn.state_dict(), config.MODEL_SAVE_PATH/config.MODEL_NAME)
+    torch.save(dqn.state_dict(), config.MODEL_SAVE_PATH/model_name or config.MODEL_NAME)
 
 
 
 
 if __name__ == "__main__":
-    training_loop()
-
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-model_name", type=str, help="Please add the .pt extension")
+    args = parser.parse_args()
+    training_loop(model_name=args.model_name)

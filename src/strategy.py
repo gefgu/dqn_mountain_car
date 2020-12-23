@@ -6,7 +6,7 @@ class EpsilonGreedyStrategy:
         self.epsilon = 1.0
         self.decay_rate = (1.0 - config.MIN_EPSILON) / (config.EXPERIENCE_SIZE)
 
-    def random_action(self):
+    def choose_random(self):
         """
         It returns if the action should be random or greedy.
 

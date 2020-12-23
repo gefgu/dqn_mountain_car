@@ -4,7 +4,7 @@ N_STATE_FEATURES = 2
 
 N_ACTIONS = 3
 
-N_FRAMES_TO_TRAIN = 10000
+N_FRAMES_TO_TRAIN = 1000
 
 MIN_EPSILON = 0.1
 
@@ -22,7 +22,7 @@ EXPERIENCE_SIZE = N_FRAMES_TO_TRAIN // 10
 
 MODEL_SAVE_PATH = Path("models/")
 
-MODEL_NAME = Path("working_model.pt")
+MODEL_NAME = Path("model.pt")
 
 DEVICE = "cpu"
 
