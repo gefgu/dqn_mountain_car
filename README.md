@@ -3,12 +3,10 @@
 ![Gif Of Model after being trained for 1 million frames](gifs/1millionframes.gif)
 
 ## Introduction
----
 
 In this project, I created a Deep Q-Learning that reaches the goal of the Mountain Car Game. It has been trained during 1 million steps and reached the result you see above.
 
 ## Installation
----
 *These steps helps you install OpenAi Gym in a Windows Environment. If this isn't your case, you can follow a similar approach suited to your OS.*
 
 *These steps are based on this [tutorial](https://towardsdatascience.com/how-to-install-openai-gym-in-a-windows-environment-338969e24d30)*
@@ -64,11 +62,8 @@ pip install Box2D
 
 Install [Xming](https://sourceforge.net/projects/xming/)
 
-
-
-
 ## Usage
----
+
 You can train a model, view a model in action, and generate a gif directly from the command-line:
 
 Trains a model using the hyperparameters defined on src/config.py. You can also specify a model_name as an argument (should include the extension ".pt").
@@ -87,14 +82,14 @@ python -m src.generate_gif -model_name my_model.pt -gif_name my_gif.gif
 ```
 
 ## Contributing
----
+
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## Questions?
----
+
 
 Send me a message at: https://www.linkedin.com/in/gustavobruno-developer/
 
 ## License
----
+
 [MIT](https://choosealicense.com/licenses/mit/)
