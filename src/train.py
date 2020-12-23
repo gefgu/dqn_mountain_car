@@ -1,15 +1,9 @@
-from torch._C import device
-import config
-from dqn import DQN
-from experience_replay import ExperienceReplay
-from strategy import EpsilonGreedyStrategy
+from src import config, DQN, ExperienceReplay, EpsilonGreedyStrategy
 from tqdm import tqdm
 import gym
 import torch
 from torch import tensor
-import numpy as np
 import torch.nn.functional as F
-import sys
 
 def train_dqn(dqn, experience_replay, optimizer):
     optimizer.zero_grad(set_to_none=True)
@@ -45,7 +39,6 @@ def training_loop():
     state = env.reset()
 
     for i in tqdm(range(config.N_FRAMES_TO_TRAIN)):
-
         if strategy.random_action():
             action = env.action_space.sample()
         else:

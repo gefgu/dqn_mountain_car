@@ -1,6 +1,7 @@
-
-from ..dqn import DQN
-from .. import config
+import sys
+print(sys.path)
+from src.dqn import DQN
+from src import config
 from torch import rand
 
 

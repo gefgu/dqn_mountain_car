@@ -1,5 +1,5 @@
-from ..strategy import EpsilonGreedyStrategy
-from .. import config
+from src.strategy import EpsilonGreedyStrategy
+from src import config
 
 def test_exceed_min_episilon():
     strategy = EpsilonGreedyStrategy()

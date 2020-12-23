@@ -1,5 +1,4 @@
-from ..experience_replay import ExperienceReplay
-from numpy import array
+from src import ExperienceReplay
 from numpy import array_equal
 
 

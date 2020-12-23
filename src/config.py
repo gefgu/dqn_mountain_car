@@ -23,4 +23,4 @@ EXPERIENCE_SIZE = N_FRAMES_TO_TRAIN // 10
 
 MODEL_SAVE_PATH = Path("models/") 
 
-DEVICE = ("cuda" if is_available else "cpu")
+DEVICE = "cpu"

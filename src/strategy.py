@@ -1,4 +1,4 @@
-import config
+from src import config
 from random import uniform
 
 class EpsilonGreedyStrategy:
