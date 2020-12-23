@@ -41,12 +41,6 @@ Package to run the ToyText Environments:
 conda install pystan
 ```
 
-To use Git:
-
-```bash
-conda install git
-```
-
 To run the Atari environments:
 
 ```bash
@@ -60,7 +54,20 @@ conda install swig
 pip install Box2D
 ```
 
-Install [Xming](https://sourceforge.net/projects/xming/) to display your model playing with the envs.
+To generate the .gif files:
+```bash
+pip install moviepy
+```
+
+To run the tests:
+```bash
+pip install pytest
+```
+
+
+Install Pytorch [here](https://pytorch.org/get-started/locally/).
+
+Install [Xming](https://sourceforge.net/projects/xming/) to display your model playing the environments.
 
 ## Usage
 
@@ -86,7 +93,6 @@ python -m src.generate_gif -model_name my_model.pt -gif_name my_gif.gif
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## Questions?
-
 
 Send me a message at: https://www.linkedin.com/in/gustavobruno-developer/
 
