@@ -4,7 +4,7 @@
 
 ## Introduction
 
-In this project, I created a Deep Q-Learning that reaches the goal of the Mountain Car Game. It has been trained during 1 million steps and reached the result you see above.
+In this project, I created a Deep Q-Learning that reaches the goal of the Mountain Car Game. It trained for 1 million steps and reached the result you see above.
 
 ## Installation
 *These steps helps you install OpenAi Gym in a Windows Environment. If this isn't your case, you can follow a similar approach suited to your OS.*
