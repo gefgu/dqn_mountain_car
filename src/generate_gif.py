@@ -5,9 +5,8 @@ import torch
 from torch import tensor
 import argparse
 from moviepy.editor import ImageSequenceClip
-from numpy import array
 
-def show_model_playing(model_name=None, gif_name=None):
+def generate_gif(model_name=None, gif_name=None):
     env = gym.make(config.ENV_NAME)
     state = env.reset()
 
@@ -35,4 +34,4 @@ if __name__ == "__main__":
     parser.add_argument("-model_name", type=str, help="Please add the .pt extension")
     parser.add_argument("-gif_name", type=str, help="Please add the .gif extension")
     args = parser.parse_args()
-    show_model_playing(model_name=args.model_name, gif_name=args.gif_name)
+    generate_gif(model_name=args.model_name, gif_name=args.gif_name)

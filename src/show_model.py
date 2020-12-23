@@ -5,7 +5,7 @@ import torch
 from torch import tensor
 import argparse
 
-def show_model_playing(model_name=None):
+def show_model(model_name=None):
     env = gym.make(config.ENV_NAME)
     state = env.reset()
 
@@ -32,4 +32,4 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-model_name", type=str, help="Please add the .pt extension")
     args = parser.parse_args()
-    show_model_playing(model_name=args.model_name)
+    show_model(model_name=args.model_name)

@@ -4,7 +4,7 @@ N_STATE_FEATURES = 2
 
 N_ACTIONS = 3
 
-N_FRAMES_TO_TRAIN = 1000
+N_FRAMES_TO_TRAIN = 1000000
 
 MIN_EPSILON = 0.1
 
@@ -24,7 +24,7 @@ MODEL_SAVE_PATH = Path("models/")
 
 MODEL_NAME = Path("model.pt")
 
-GIF_SAVE_PATH = Path(".")
+GIF_SAVE_PATH = Path("gifs/")
 
 GIF_NAME = Path("gif.gif")
 
