@@ -57,11 +57,13 @@ def training_loop():
             state = next_state
 
         strategy.decrease_epsilon()
+
     env.close()
-    torch.save(dqn.state_dict(), config.MODEL_SAVE_PATH/"model.pt")
+    torch.save(dqn.state_dict(), config.MODEL_SAVE_PATH/config.MODEL_NAME)
 
 
 
 
 if __name__ == "__main__":
     training_loop()
+
